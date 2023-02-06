@@ -37,7 +37,6 @@ func main() {
 		var inputPaths []string = myFsm.GetFilePaths(*cpIn)
 
 		myFsm.WriteFiles(inputPaths, *cpOut)
-
 		fmt.Println("Success:", len(inputPaths), "Files Copied to", *cpOut)
 	case "mv":
 		fmt.Println("Invoking Move Procedure")
@@ -47,8 +46,11 @@ func main() {
 		fmt.Println("\tTrailing Args:", mvCmd.Args())
 
 		inputPaths := myFsm.GetFilePaths(*mvIn)
-		fmt.Println("Input Files:", inputPaths)
 
+		myFsm.WriteFiles(inputPaths, *mvOut)
+
+		myFsm.DeleteFiles(inputPaths)
+		fmt.Println("Success:", len(inputPaths), "Files Moved to", *mvOut)
 	case "rp":
 		fmt.Println("Invoking Replace Procedure")
 		rpCmd.Parse(os.Args[2:])
