@@ -18,7 +18,7 @@ func (fsm FileSystemManager) check(e error) {
 	}
 }
 
-func (fsm FileSystemManager) GetFiles(dirPath string) []string {
+func (fsm FileSystemManager) GetFilePaths(dirPath string) []string {
 	files := []string{}
 
 	filepath.Walk(dirPath, func(path string, f os.FileInfo, err error) error {

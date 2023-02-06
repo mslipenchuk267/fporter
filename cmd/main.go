@@ -34,7 +34,7 @@ func main() {
 		fmt.Println("\tOutput Dir:", *cpOut)
 		fmt.Println("\tTrailing Args:", cpCmd.Args())
 
-		inputPaths := myFsm.GetFiles(*cpIn)
+		inputPaths := myFsm.GetFilePaths(*cpIn)
 		fmt.Println("Input Files:", inputPaths)
 
 	case "mv":
@@ -44,7 +44,7 @@ func main() {
 		fmt.Println("\tOutput Dir:", *mvOut)
 		fmt.Println("\tTrailing Args:", mvCmd.Args())
 
-		inputPaths := myFsm.GetFiles(*mvIn)
+		inputPaths := myFsm.GetFilePaths(*mvIn)
 		fmt.Println("Input Files:", inputPaths)
 
 	case "rp":
@@ -54,7 +54,7 @@ func main() {
 		fmt.Println("\tRegex:", *rpRgx)
 		fmt.Println("\tTrailing Args:", rpCmd.Args())
 
-		inputPaths := myFsm.GetFiles(*rpIn)
+		inputPaths := myFsm.GetFilePaths(*rpIn)
 		fmt.Println("Input Files:", inputPaths)
 
 	default:
