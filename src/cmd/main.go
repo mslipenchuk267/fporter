@@ -34,9 +34,11 @@ func main() {
 		fmt.Println("\tOutput Dir:", *cpOut)
 		fmt.Println("\tTrailing Args:", cpCmd.Args())
 
-		inputPaths := myFsm.GetFilePaths(*cpIn)
-		fmt.Println("Input Files:", inputPaths)
+		var inputPaths []string = myFsm.GetFilePaths(*cpIn)
 
+		myFsm.WriteFiles(inputPaths, *cpOut)
+
+		fmt.Println("Success: Files Copied to", *cpOut)
 	case "mv":
 		fmt.Println("Invoking Move Procedure")
 		mvCmd.Parse(os.Args[2:])

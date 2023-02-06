@@ -49,9 +49,26 @@ func (fsm FileSystemManager) GetFilePaths(dirPath string) []string {
 	return files
 }
 
+func (fsm FileSystemManager) GetFileContents(filePath string) []byte {
+	dat, err := os.ReadFile(filePath)
+	fsm.check(err)
+	return dat
+}
+
 func (fsm FileSystemManager) PrintFileContents(filePath string) {
 	dat, err := os.ReadFile(filePath)
 	fsm.check(err)
 	fmt.Println("File Contents:", filePath)
 	fmt.Println(string(dat))
+}
+
+func (fsm FileSystemManager) WriteFiles(filePaths []string, outputDir string) {
+	for i, filePath := range filePaths {
+		fmt.Println(i, filePath)
+		var dat []byte = fsm.GetFileContents(filePath)
+		var fileName string = filepath.Base(filePath)
+		var outFilePath string = filepath.Join(outputDir, fileName)
+		err := os.WriteFile(outFilePath, dat, 0644)
+		fsm.check(err)
+	}
 }
