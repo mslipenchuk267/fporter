@@ -11,7 +11,7 @@ type FileSystemManager struct {
 	Procedure string
 }
 
-func (fsm FileSystemManager) check(e error) {
+func (fsm FileSystemManager) CheckError(e error) {
 	if e != nil { // if error
 		// stop execution, run any deffered functions, non-zero exit
 		panic(e)
@@ -51,13 +51,13 @@ func (fsm FileSystemManager) GetFilePaths(dirPath string) []string {
 
 func (fsm FileSystemManager) GetFileContents(filePath string) []byte {
 	dat, err := os.ReadFile(filePath)
-	fsm.check(err)
+	fsm.CheckError(err)
 	return dat
 }
 
 func (fsm FileSystemManager) PrintFileContents(filePath string) {
 	dat, err := os.ReadFile(filePath)
-	fsm.check(err)
+	fsm.CheckError(err)
 	fmt.Println("File Contents:", filePath)
 	fmt.Println(string(dat))
 }
@@ -68,6 +68,15 @@ func (fsm FileSystemManager) WriteFiles(filePaths []string, outputDir string) {
 		var fileName string = filepath.Base(filePath)
 		var outFilePath string = filepath.Join(outputDir, fileName)
 		err := os.WriteFile(outFilePath, dat, 0644)
-		fsm.check(err)
+		fsm.CheckError(err)
+	}
+}
+
+func (fsm FileSystemManager) DeleteFiles(filePaths []string) {
+	for _, filePath := range filePaths {
+		err := os.Remove(filePath)
+		if err != nil {
+			log.Fatal(err)
+		}
 	}
 }
