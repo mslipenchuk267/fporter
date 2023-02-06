@@ -1,6 +1,7 @@
 package fs
 
 import (
+	"fmt"
 	"log"
 	"os"
 	"path/filepath"
@@ -8,6 +9,13 @@ import (
 
 type FileSystemManager struct {
 	Procedure string
+}
+
+func (fsm FileSystemManager) check(e error) {
+	if e != nil { // if error
+		// stop execution, run any deffered functions, non-zero exit
+		panic(e)
+	}
 }
 
 func (fsm FileSystemManager) GetFiles(dirPath string) []string {
@@ -28,6 +36,9 @@ func (fsm FileSystemManager) GetFiles(dirPath string) []string {
 		// Make sure item is file
 		if f_mode.IsRegular() {
 
+			// Print File Contents
+			// fsm.PrintFileContents(path)
+
 			// Append to Files Array
 			files = append(files, path)
 		}
@@ -36,4 +47,11 @@ func (fsm FileSystemManager) GetFiles(dirPath string) []string {
 	})
 
 	return files
+}
+
+func (fsm FileSystemManager) PrintFileContents(filePath string) {
+	dat, err := os.ReadFile(filePath)
+	fsm.check(err)
+	fmt.Println("File Contents:", filePath)
+	fmt.Println(string(dat))
 }
