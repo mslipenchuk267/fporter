@@ -63,8 +63,7 @@ func (fsm FileSystemManager) PrintFileContents(filePath string) {
 }
 
 func (fsm FileSystemManager) WriteFiles(filePaths []string, outputDir string) {
-	for i, filePath := range filePaths {
-		fmt.Println(i, filePath)
+	for _, filePath := range filePaths {
 		var dat []byte = fsm.GetFileContents(filePath)
 		var fileName string = filepath.Base(filePath)
 		var outFilePath string = filepath.Join(outputDir, fileName)
