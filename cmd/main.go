@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"os"
 
-	fs "github.com/fporter/pkg/fs"
+	fsm "github.com/fporter/pkg/fsm"
 )
 
 func main() {
@@ -22,35 +22,44 @@ func main() {
 	rpIn := rpCmd.String("in", "", "Input Directory")
 	rpRgx := rpCmd.String("rgx", "", "Regex Schema")
 
+	// Create FileSystemManager
+	myFsm := &fsm.FileSystemManager{Procedure: os.Args[1]}
+
 	// Execute User's File Manipulation Procedure
-	switch os.Args[1] {
+	switch myFsm.Procedure {
 	case "cp":
 		fmt.Println("Invoking Copy Procedure")
 		cpCmd.Parse(os.Args[2:])
 		fmt.Println("\tInput Dir:", *cpIn)
 		fmt.Println("\tOutput Dir:", *cpOut)
 		fmt.Println("\tTrailing Args:", cpCmd.Args())
+
+		inputPaths := myFsm.GetFiles(*cpIn)
+		fmt.Println("Input Files:", inputPaths)
+
 	case "mv":
 		fmt.Println("Invoking Move Procedure")
 		mvCmd.Parse(os.Args[2:])
 		fmt.Println("\tInput Dir:", *mvIn)
 		fmt.Println("\tOutput Dir:", *mvOut)
 		fmt.Println("\tTrailing Args:", mvCmd.Args())
+
+		inputPaths := myFsm.GetFiles(*mvIn)
+		fmt.Println("Input Files:", inputPaths)
+
 	case "rp":
 		fmt.Println("Invoking Replace Procedure")
 		rpCmd.Parse(os.Args[2:])
 		fmt.Println("\tInput Dir:", *rpIn)
 		fmt.Println("\tRegex:", *rpRgx)
 		fmt.Println("\tTrailing Args:", rpCmd.Args())
+
+		inputPaths := myFsm.GetFiles(*rpIn)
+		fmt.Println("Input Files:", inputPaths)
+
 	default:
 		fmt.Println("Arg 1 Error: Please specify valid procedure: Copy (cp), Move (mv), Replace (rp)")
 		os.Exit(1)
 	}
 
-	// Create FileSystem Abstraction
-	myFs := &fs.FileSystem{Procedure: os.Args[1]}
-
-	res := myFs.GetFiles("Man")
-	fmt.Println(myFs.Procedure)
-	fmt.Println(res)
 }
