@@ -4,6 +4,8 @@ import (
 	"flag"
 	"fmt"
 	"os"
+
+	fs "github.com/fporter/pkg/fs"
 )
 
 func main() {
@@ -45,4 +47,10 @@ func main() {
 		os.Exit(1)
 	}
 
+	// Create FileSystem Abstraction
+	myFs := &fs.FileSystem{Procedure: os.Args[1]}
+
+	res := myFs.GetFiles("Man")
+	fmt.Println(myFs.Procedure)
+	fmt.Println(res)
 }
