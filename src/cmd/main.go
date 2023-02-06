@@ -37,8 +37,8 @@ func main() {
 		var inputPaths []string = myFsm.GetFilePaths(*cpIn)
 
 		myFsm.WriteFiles(inputPaths, *cpOut)
-		filesTxed := len(inputPaths)
-		fmt.Println("Success:", filesTxed, "Files Copied to", *cpOut)
+
+		fmt.Println("Success:", len(inputPaths), "Files Copied to", *cpOut)
 	case "mv":
 		fmt.Println("Invoking Move Procedure")
 		mvCmd.Parse(os.Args[2:])
