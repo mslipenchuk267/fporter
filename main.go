@@ -8,9 +8,9 @@ import (
 
 func main() {
 	// Define Subcommands & flags
-	cpCmd := flag.NewFlagSet("cp", flag.ExitOnError)
-	cpIn := cpCmd.String("in", "", "Input Directory")
-	cpOut := cpCmd.String("out", "", "Output Directory")
+	cpCmd := flag.NewFlagSet("cp", flag.ExitOnError)     // subcommand def
+	cpIn := cpCmd.String("in", "", "Input Directory")    // flag def
+	cpOut := cpCmd.String("out", "", "Output Directory") // flag def
 
 	mvCmd := flag.NewFlagSet("mv", flag.ExitOnError)
 	mvIn := mvCmd.String("in", "", "Input Directory")
@@ -20,6 +20,7 @@ func main() {
 	rpIn := rpCmd.String("in", "", "Input Directory")
 	rpRgx := rpCmd.String("rgx", "", "Regex Schema")
 
+	// Execute User's File Manipulation Procedure
 	switch os.Args[1] {
 	case "cp":
 		fmt.Println("Invoking Copy Procedure")
