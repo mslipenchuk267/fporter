@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"os"
 
-	fsm "github.com/fporter/pkg/fsm"
+	fsm "github.com/fporter/src/pkg/fsm"
 )
 
 func main() {
